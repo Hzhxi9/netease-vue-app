@@ -1,17 +1,14 @@
 // eslint-disable-next-line
 const path = require("path");
-const vantTheme = path.resolve(__dirname, "./src/assets/styles/vant-theme.less");
 
 module.exports = {
   productionSourceMap: false,
+
   css: {
     loaderOptions: {
       less: {
-        lessOptions: {
-          // javascriptEnabled: true,
-          modifyVars: {
-            hack: `true; @import "${vantTheme}";`,
-          },
+        modifyVars: {
+          hack: `true; @import "${path.join(__dirname, "./src/assets/styles/vant-theme.less")}";`,
         },
       },
     },
@@ -24,7 +21,3 @@ module.exports = {
   },
   publicPath: process.env.NODE_ENV === "production" ? "" : "/",
 };
-
-function resolve(dir) {
-  return path.join(__dirname, dir);
-}

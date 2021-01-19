@@ -1,0 +1,25 @@
+.my-swipe .van-swipe-item {
+  color: #fff;
+  font-size: 20px;
+  line-height: 150px;
+  text-align: center;
+  background-color: #39a9ed;
+}
+.recommend {
+  .banner-box {
+    background-image: linear-gradient($theme-color 50%, $white 0%);
+    .banner-swipe {
+      .banner-item {
+        padding: 1.6vw;
+
+        img {
+          width: 100%;
+          height: 45.333vw;
+        }
+      }
+      .van-swipe__indicators {
+        bottom: 20px;
+      }
+    }
+  }
+}

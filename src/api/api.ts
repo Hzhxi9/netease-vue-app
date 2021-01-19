@@ -1,0 +1,63 @@
+import request from "@/utils/request";
+
+import * as ResTypes from "@/types/response";
+
+/**
+ * 轮播图
+ */
+export function getBanner(): Promise<ResTypes.BannerData> {
+  return request({
+    url: "/banner",
+    method: "GET",
+  });
+}
+
+/**
+ * 推荐歌单
+ */
+export function personalized() {
+  return request({
+    url: "/personalized",
+    method: "GET",
+  });
+}
+
+/**
+ * 推荐mv
+ */
+export function personalizedMV() {
+  return request({
+    url: "/personalized/mv",
+    method: "GET",
+  });
+}
+
+/**
+ * 推荐新音乐
+ */
+export function personalizedNewSong() {
+  return request({
+    url: "/personalized/newsong",
+    method: "GET",
+  });
+}
+
+/**
+ * 推荐电台
+ */
+export function personalizedDJ() {
+  return request({
+    url: "/personalized/djprogram",
+    method: "GET",
+  });
+}
+
+/**
+ * 推荐节目
+ */
+export function personalizedProgram() {
+  return request({
+    url: "/program/recommend",
+    method: "GET",
+  });
+}

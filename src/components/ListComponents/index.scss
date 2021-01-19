@@ -1,0 +1,30 @@
+.content {
+  .title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 12px;
+    h3 {
+      font-size: 6.4vw;
+      font-weight: bold;
+    }
+  }
+  .item {
+    width: 32vw;
+    p {
+      font-size: 3.2vw;
+      color: #2e3030;
+      line-height: 1.4;
+    }
+  }
+
+  .van-tabs__wrap--scrollable .van-tab {
+    padding: 0 6px;
+  }
+  .van-tabs--line .van-tabs__wrap {
+    height: auto;
+  }
+  .van-tabs__nav--complete {
+    padding: 15px 0;
+  }
+}

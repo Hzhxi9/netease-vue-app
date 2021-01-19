@@ -1,5 +1,5 @@
 import { createApp } from "vue";
-import { NavBar } from "vant";
+import { NavBar, Icon, Tab, Tabs, Popup, Swipe, SwipeItem, Image as VanImage, Button } from "vant";
 
 import App from "./App.vue";
 import router from "./router";
@@ -7,11 +7,11 @@ import store from "./store";
 
 import "@/assets/styles/normalize.css";
 
-import "vant/lib/nav-bar/style/less";
-
 const app = createApp(App);
 
-app.use(NavBar);
+[NavBar, Icon, Tab, Tabs, Popup, Swipe, SwipeItem, VanImage, Button].forEach((name) => {
+  app.use(name);
+});
 
 app
   .use(store)
