@@ -60,7 +60,7 @@ const ListComponents = defineComponent({
               ))
             : new Array(6)
                 .fill("")
-                .map((item) => (
+                .map(() => (
                   <van-tab v-slots={{ title: () => <ListSkeletonComponent /> }}></van-tab>
                 ))}
         </van-tabs>

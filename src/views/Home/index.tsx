@@ -3,6 +3,8 @@ import { useRouter } from "vue-router";
 
 import "./index.scss";
 
+import TabberComponent from "@/components/TabbarComponent/index";
+
 const Home = defineComponent({
   name: "Home",
   setup() {
@@ -62,7 +64,7 @@ const Home = defineComponent({
     return () => (
       <div class="home">
         <van-nav-bar
-          title="标题"
+          title="网易云音乐"
           border={false}
           v-slots={{
             right: () => renderNavRight,
@@ -78,6 +80,8 @@ const Home = defineComponent({
         <div class="wrap">
           <router-view />
         </div>
+
+        <TabberComponent />
       </div>
     );
   },
