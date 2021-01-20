@@ -5,16 +5,31 @@
     justify-content: space-between;
     padding: 0 12px;
     h3 {
-      font-size: 6.4vw;
+      font-size: 4.8vw;
       font-weight: bold;
     }
   }
   .item {
     width: 32vw;
+    .pic-box {
+      position: relative;
+      span {
+        position: absolute;
+        top: 1.333vw;
+        right: 1.333vw;
+        display: flex;
+        align-items: center;
+        background-color: rgba(153, 153, 153, 0.5);
+        border-radius: 2.667vw;
+        font-size: 3.2vw;
+        padding: 0 1.333vw;
+      }
+    }
     p {
       font-size: 3.2vw;
       color: #2e3030;
       line-height: 1.4;
+      min-height: 8.533vw;
     }
   }
 

@@ -15,7 +15,7 @@ export function getBanner(): Promise<ResTypes.BannerData> {
 /**
  * 推荐歌单
  */
-export function personalized() {
+export function personalized(): Promise<ResTypes.PersonalizedData> {
   return request({
     url: "/personalized",
     method: "GET",
@@ -25,7 +25,7 @@ export function personalized() {
 /**
  * 推荐mv
  */
-export function personalizedMV() {
+export function personalizedMV(): Promise<ResTypes.PersonalizedDJData> {
   return request({
     url: "/personalized/mv",
     method: "GET",
@@ -35,7 +35,7 @@ export function personalizedMV() {
 /**
  * 推荐新音乐
  */
-export function personalizedNewSong() {
+export function personalizedNewSong(): Promise<ResTypes.PersonalizedNewSongData> {
   return request({
     url: "/personalized/newsong",
     method: "GET",

@@ -1,9 +1,9 @@
-import { onBeforeMount, reactive } from "vue";
-import { useRouter } from "vue-router";
+import { onBeforeMount, reactive, onActivated, KeepAlive, defineComponent } from "vue";
+import { RouterView, useRouter } from "vue-router";
 
 import "./index.scss";
 
-const Home = {
+const Home = defineComponent({
   name: "Home",
   setup() {
     //
@@ -32,6 +32,10 @@ const Home = {
 
     onBeforeMount(() => {
       router.push(tabList[state.active].path);
+    });
+
+    onActivated(() => {
+      console.log("1111");
     });
 
     const renderNavRight = <van-icon name="search" size="18" color="#fff" onClick={handleSearch} />;
@@ -72,11 +76,11 @@ const Home = {
           class="menu-popup"></van-popup>
 
         <div class="wrap">
-          <router-view />
+          <RouterView></RouterView>
         </div>
       </div>
     );
   },
-};
+});
 
 export default Home;
