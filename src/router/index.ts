@@ -10,16 +10,25 @@ const routes: Array<RouteRecordRaw> = [
         path: "recommend",
         name: "Recommend",
         component: () => import(/* webpackChunkName: "home" */ "../views/Recommend/index"),
+        meta: {
+          keepAlive: true,
+        },
       },
       {
         path: "singer",
         name: "Singer",
         component: () => import(/* webpackChunkName: "home" */ "../views/Singer/index"),
+        meta: {
+          keepAlive: true,
+        },
       },
       {
         path: "ranking",
         name: "Ranking",
         component: () => import(/* webpackChunkName: "home" */ "../views/Ranking/index"),
+        meta: {
+          keepAlive: true,
+        },
       },
     ],
   },

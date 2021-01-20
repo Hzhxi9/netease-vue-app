@@ -8,4 +8,8 @@
     width: 50%;
     background-color: #fff;
   }
+  .wrap {
+    height: calc(100vh - 46px - 40px);
+    overflow: auto;
+  }
 }

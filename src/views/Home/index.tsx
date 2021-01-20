@@ -1,5 +1,5 @@
 import { onBeforeMount, reactive, onActivated, KeepAlive, defineComponent } from "vue";
-import { RouterView, useRouter } from "vue-router";
+import { useRouter } from "vue-router";
 
 import "./index.scss";
 
@@ -76,7 +76,7 @@ const Home = defineComponent({
           class="menu-popup"></van-popup>
 
         <div class="wrap">
-          <RouterView></RouterView>
+          <router-view />
         </div>
       </div>
     );
