@@ -1,5 +1,4 @@
-import { reactive, onMounted } from "vue";
-
+import { reactive } from "vue";
 import { getRandomItem } from "@/utils";
 
 import ListComponents from "@/components/ListComponent/index";
@@ -59,19 +58,28 @@ const Recommend = {
 
     const renderSwipe = (
       <van-swipe class="banner-swipe" autoplay={3000} indicator-color="#d44439">
-        {state.banners.length
-          ? state.banners.map((item) => (
-              <van-swipe-item class="banner-item" key={item.encodeId}>
-                <van-image
-                  width="100%"
-                  radius={"2.667vw"}
-                  src={item.imageUrl}
-                  fit={"cover"}
-                  v-slots={{ loading: () => <van-loading type="spinner" size="20" /> }}
-                />
-              </van-swipe-item>
-            ))
-          : null}
+        {state.banners.length ? (
+          state.banners.map((item) => (
+            <van-swipe-item class="banner-item" key={item.encodeId}>
+              <van-image
+                width="100%"
+                radius={"2.667vw"}
+                src={item.imageUrl || "https://img.yzcdn.cn/vant/cat.jpeg"}
+                fit={"cover"}
+                v-slots={{ loading: () => <van-loading type="spinner" size="20" /> }}
+              />
+            </van-swipe-item>
+          ))
+        ) : (
+          <van-swipe-item class="banner-item">
+            <van-skeleton
+              avatar
+              avatar-size={"calc(100vw - 1.6vw * 2)"}
+              avatar-shape={"square"}
+              row={0}
+            />
+          </van-swipe-item>
+        )}
       </van-swipe>
     );
 
@@ -81,9 +89,7 @@ const Recommend = {
         <div class="warp">
           <ListComponents list={state.personalizedList} title={"推荐歌单"}></ListComponents>
           <ListComponents list={state.personalizedDJList} title={"推荐MV"}></ListComponents>
-          <ListComponents
-            list={state.personalizedNewSongsList}
-            title={"推荐新音乐"}></ListComponents>
+          <ListComponents list={state.personalizedNewSongsList} title={"新歌速递"}></ListComponents>
         </div>
       </div>
     );

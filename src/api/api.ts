@@ -61,3 +61,16 @@ export function personalizedProgram() {
     method: "GET",
   });
 }
+
+/**
+ * 歌手列表
+ */
+export function getSingerList(params: {
+  initial: string;
+}): Promise<{ artists: ResTypes.SingerListData[] }> {
+  return request({
+    url: "/artist/list",
+    method: "GET",
+    params,
+  });
+}

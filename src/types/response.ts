@@ -104,3 +104,22 @@ export interface PersonalizedNewSongItemData {
   trackNumberUpdateTime: null;
   type: number;
 }
+
+export interface SingerListData {
+  img1v1Id: string;
+  topicPerson: number;
+  alias: any[];
+  followed: boolean;
+  briefDesc: string;
+  musicSize: number;
+  albumSize: number;
+  picId: number;
+  img1v1Url: string;
+  picUrl: string;
+  trans: string;
+  name: string;
+  id: number;
+  accountId: number;
+  picId_str: string;
+  img1v1Id_str: string;
+}

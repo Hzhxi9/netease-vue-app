@@ -13,6 +13,9 @@ import {
   Loading,
   Tabbar,
   TabbarItem,
+  IndexBar,
+  IndexAnchor,
+  Cell,
 } from "vant";
 
 import App from "./App.vue";
@@ -39,6 +42,9 @@ const app = createApp(App);
   Loading,
   Tabbar,
   TabbarItem,
+  IndexBar,
+  IndexAnchor,
+  Cell,
 ].forEach((name) => {
   app.use(name);
 });

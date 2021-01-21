@@ -1,5 +1,5 @@
-import { onBeforeMount, reactive, onActivated, KeepAlive, defineComponent } from "vue";
-import { useRouter } from "vue-router";
+import { onBeforeMount, reactive, onActivated, defineComponent, KeepAlive } from "vue";
+import { RouterView, useRouter } from "vue-router";
 
 import "./index.scss";
 
@@ -10,7 +10,6 @@ const Home = defineComponent({
   setup() {
     //
     const state = reactive({
-      list: [],
       active: 0,
       showMenu: false,
     });
@@ -78,7 +77,12 @@ const Home = defineComponent({
           class="menu-popup"></van-popup>
 
         <div class="wrap">
-          <router-view />
+          {/* <router-view v-slots={Component}>
+            <KeepAlive>
+              <component is={Component}></component>
+            </KeepAlive>
+          </router-view> */}
+          <RouterView></RouterView>
         </div>
 
         <TabberComponent />

@@ -5,10 +5,8 @@ const TabbarComponent = defineComponent({
 
   setup() {
     const state = reactive({
-      tabbarActive: 0,
+      active: 0,
     });
-
-    const active = ref(0);
 
     const tabbarList = Object.freeze([
       {
@@ -33,27 +31,18 @@ const TabbarComponent = defineComponent({
       },
     ]);
 
-    const changeTabbar = (index: number) => {
-      state.tabbarActive = index;
-    };
-
     const renderTabBar = () => (
-      <van-tabbar active-color={"#d44439"} route v-model={[state.tabbarActive, "active"]}>
+      <van-tabbar active-color={"#ee0a24"} v-model={[state.active, "modelValue"]}>
         {tabbarList.length
           ? tabbarList.map((item, index) => (
               <van-tabbar-item
                 key={index}
-                onClick={() => changeTabbar(index)}
                 v-slots={{
                   icon: () => (
-                    <van-icon
-                      class="iconfont"
-                      class-prefix="icon"
-                      name={item.icon}
-                      color={state.tabbarActive ? "#d44439" : "#7d7e80"}
-                    />
+                    <van-icon class="iconfont" class-prefix="icon" name={item.icon} size="20" />
                   ),
-                }}>
+                }}
+                to={item.path}>
                 {item.name}
               </van-tabbar-item>
             ))
