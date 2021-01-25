@@ -1,4 +1,4 @@
-import { reactive } from "vue";
+import { reactive, TransitionGroup, RendererElement, onBeforeMount } from "vue";
 import { getRandomItem } from "@/utils";
 
 import ListComponents from "@/components/ListComponent/index";
@@ -7,6 +7,7 @@ import * as ResTypes from "@/types/response";
 import * as Api from "@/api/api";
 
 import "./index.scss";
+import "../../assets/styles/animate.scss";
 
 const Recommend = {
   name: "Recommend",
@@ -17,6 +18,10 @@ const Recommend = {
       personalizedList: [] as ResTypes.PersonalizedItemData[],
       personalizedDJList: [] as ResTypes.PersonalizedDJItemData[],
       personalizedNewSongsList: [] as ResTypes.PersonalizedNewSongItemData[],
+
+      show1: false,
+      show2: false,
+      show3: false,
     });
 
     const init = () => {
@@ -54,6 +59,35 @@ const Recommend = {
       }
     };
 
+    /**
+     * 列表进入动画
+     */
+    const beforeEnter = (el: RendererElement) => {
+      el.style.opacity = "0";
+    };
+
+    /**
+     * 列表进入后动画
+     */
+    const enter = (el: RendererElement, done: () => void) => {
+      const delay = el.dataset.index * 100;
+      setTimeout(() => {
+        el.style.transition = "opacity 0.4s ";
+        el.style.opacity = 1;
+        el.style.animation = "one-in 0.4s infinite";
+        el.style["animation-iteration-count"] = 1;
+        done();
+      }, delay);
+    };
+
+    onBeforeMount(() => {
+      setTimeout(() => {
+        state.show1 = !state.show1;
+        state.show2 = !state.show2;
+        state.show3 = !state.show3;
+      });
+    });
+
     init();
 
     const renderSwipe = (
@@ -87,9 +121,34 @@ const Recommend = {
       <div class="recommend">
         <div class="banner-box">{renderSwipe}</div>
         <div class="warp">
-          <ListComponents list={state.personalizedList} title={"推荐歌单"}></ListComponents>
-          <ListComponents list={state.personalizedDJList} title={"推荐MV"}></ListComponents>
-          <ListComponents list={state.personalizedNewSongsList} title={"新歌速递"}></ListComponents>
+          <TransitionGroup name="more" css={false} onBeforeEnter={beforeEnter} onEnter={enter}>
+            {state.show1 ? (
+              <ListComponents
+                list={state.personalizedList}
+                title={"推荐歌单"}
+                data-index={1}
+                key="1"
+              />
+            ) : null}
+
+            {state.show2 ? (
+              <ListComponents
+                list={state.personalizedDJList}
+                title={"推荐MV"}
+                data-index={2}
+                key="2"
+              />
+            ) : null}
+
+            {state.show3 ? (
+              <ListComponents
+                list={state.personalizedNewSongsList}
+                title={"新歌速递"}
+                data-index={3}
+                key="3"
+              />
+            ) : null}
+          </TransitionGroup>
         </div>
       </div>
     );

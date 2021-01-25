@@ -1,5 +1,4 @@
-import { defineComponent, reactive } from "vue";
-import { AlphaTypes } from "@/utils/constants";
+import { defineComponent, reactive, onBeforeMount, ref, nextTick } from "vue";
 import { getSingerList } from "@/api/api";
 
 import "./index.scss";
@@ -43,6 +42,37 @@ const Singer = defineComponent({
       } as { [key: string]: ResTypes.SingerListData[] },
     });
 
+    /**
+     * 获取容器元素节点
+     */
+    const singerElement = ref(null as HTMLDivElement | null);
+
+    /**
+     * 获取索引元素节点
+     */
+    const indexRefs = ref([] as HTMLDivElement[]);
+
+    const handleNodes = (el: any) => {
+      console.log("indexRefs", el.value);
+      indexRefs.value && indexRefs.value.push(el);
+    };
+
+    // watch(
+    //   () => state.letter,
+    //   (newVal: any) => {
+    //     console.log(wrapper);
+    //     console.log("new", newVal);
+    //   }
+    // );
+
+    const scroll = () => {
+      // console.log(document.querySelector())
+    };
+
+    onBeforeMount(() => {
+      singerElement.value && singerElement.value.addEventListener("scroll", scroll);
+    });
+
     const initSingerList = () => {
       getSingerList({ initial: state.initIndex })
         .then((res) => {
@@ -70,7 +100,7 @@ const Singer = defineComponent({
       <van-cell
         center
         value-class="name"
-        key={element.accountId}
+        key={element.id}
         v-slots={{
           icon: () => (
             <van-image
@@ -92,7 +122,7 @@ const Singer = defineComponent({
         {Object.keys(state.singerData).length
           ? Object.keys(state.singerData).map((element, index) => (
               <>
-                <van-index-anchor key={index} index={element} />
+                <van-index-anchor key={index} index={element} ref={handleNodes} />
                 {state.singerData[element].length
                   ? state.singerData[element].map((e) => renderSingerCell(e))
                   : null}
@@ -102,7 +132,11 @@ const Singer = defineComponent({
       </van-index-bar>
     );
 
-    return () => <div class="singer">{renderIndexBar()}</div>;
+    return () => (
+      <div class="singer" ref={singerElement}>
+        {renderIndexBar()}
+      </div>
+    );
   },
 });
 
