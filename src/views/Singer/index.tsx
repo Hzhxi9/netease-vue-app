@@ -1,5 +1,6 @@
-import { defineComponent, reactive, onBeforeMount, ref, nextTick } from "vue";
+import { defineComponent, reactive, onMounted, ref, nextTick, onUnmounted } from "vue";
 import { getSingerList } from "@/api/api";
+import { isElementNotInViewport } from "@/utils";
 
 import "./index.scss";
 
@@ -47,53 +48,48 @@ const Singer = defineComponent({
      */
     const singerElement = ref(null as HTMLDivElement | null);
 
-    /**
-     * 获取索引元素节点
-     */
-    const indexRefs = ref([] as HTMLDivElement[]);
-
-    const handleNodes = (el: any) => {
-      console.log("indexRefs", el.value);
-      indexRefs.value && indexRefs.value.push(el);
-    };
-
-    // watch(
-    //   () => state.letter,
-    //   (newVal: any) => {
-    //     console.log(wrapper);
-    //     console.log("new", newVal);
-    //   }
-    // );
-
-    const scroll = () => {
-      // console.log(document.querySelector())
-    };
-
-    onBeforeMount(() => {
-      singerElement.value && singerElement.value.addEventListener("scroll", scroll);
-    });
-
     const initSingerList = () => {
       getSingerList({ initial: state.initIndex })
-        .then((res) => {
+        .then((res: any) => {
+          console.log(res, "rwes");
           state.singerData[state.initIndex] = res.artists;
-          console.log(state.singerData);
         })
-        .catch((error) => {
+        .catch((error: any) => {
           console.log(error);
         });
     };
 
     initSingerList();
 
-    const selectIndex = (index: string) => {
-      state.initIndex = index;
-      initSingerList();
+    const scroll = () => {
+      nextTick(() => {
+        const anchorElement = (document.querySelectorAll(
+          ".anchor-index"
+        ) as unknown) as HTMLDivElement[];
+        const singerElement = document.querySelector(".singer") as HTMLDivElement;
+
+        anchorElement.forEach((e, i) => {
+          if (isElementNotInViewport(e, singerElement)) {
+            if (!Object.values(state.singerData)[i].length) {
+              state.initIndex = Object.keys(state.singerData)[i];
+              initSingerList();
+            }
+          }
+        });
+      });
     };
 
-    const changeIndex = (index: string) => {
+    onMounted(() => {
+      singerElement.value && singerElement.value.addEventListener("scroll", scroll);
+    });
+
+    onUnmounted(() => {
+      singerElement.value && singerElement.value.removeEventListener("scroll", scroll, false);
+    });
+
+    const selectIndex = (index: string) => {
       state.initIndex = index;
-      initSingerList();
+      if (!state.singerData[index].length) initSingerList();
     };
 
     const renderSingerCell = (element: ResTypes.SingerListData) => (
@@ -118,11 +114,11 @@ const Singer = defineComponent({
     );
 
     const renderIndexBar = () => (
-      <van-index-bar onSelect={selectIndex} onChange={changeIndex}>
+      <van-index-bar onSelect={selectIndex}>
         {Object.keys(state.singerData).length
           ? Object.keys(state.singerData).map((element, index) => (
               <>
-                <van-index-anchor key={index} index={element} ref={handleNodes} />
+                <van-index-anchor key={index} index={element} class={`anchor-index`} />
                 {state.singerData[element].length
                   ? state.singerData[element].map((e) => renderSingerCell(e))
                   : null}

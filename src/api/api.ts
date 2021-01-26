@@ -1,76 +1,52 @@
-import request from "@/utils/request";
+import httpHelper from "@/utils/request";
 
 import * as ResTypes from "@/types/response";
 
 /**
  * 轮播图
  */
-export function getBanner(): Promise<ResTypes.BannerData> {
-  return request({
-    url: "/banner",
-    method: "GET",
-  });
+export function getBanner(): any {
+  return httpHelper.get("/banner");
 }
 
 /**
  * 推荐歌单
  */
-export function personalized(): Promise<ResTypes.PersonalizedData> {
-  return request({
-    url: "/personalized",
-    method: "GET",
-  });
+export function personalized() {
+  return httpHelper.get("/personalized");
 }
 
 /**
  * 推荐mv
  */
-export function personalizedMV(): Promise<ResTypes.PersonalizedDJData> {
-  return request({
-    url: "/personalized/mv",
-    method: "GET",
-  });
+export function personalizedMV() {
+  return httpHelper.get("/personalized/mv");
 }
 
 /**
  * 推荐新音乐
  */
-export function personalizedNewSong(): Promise<ResTypes.PersonalizedNewSongData> {
-  return request({
-    url: "/personalized/newsong",
-    method: "GET",
-  });
+export function personalizedNewSong() {
+  return httpHelper.get("/personalized/newsong");
 }
 
 /**
  * 推荐电台
  */
 export function personalizedDJ() {
-  return request({
-    url: "/personalized/djprogram",
-    method: "GET",
-  });
+  return httpHelper.get("/personalized/djprogram");
 }
 
 /**
  * 推荐节目
  */
 export function personalizedProgram() {
-  return request({
-    url: "/program/recommend",
-    method: "GET",
-  });
+  return httpHelper.get("/program/recommend");
 }
 
 /**
  * 歌手列表
  */
-export function getSingerList(params: {
-  initial: string;
-}): Promise<{ artists: ResTypes.SingerListData[] }> {
-  return request({
-    url: "/artist/list",
-    method: "GET",
-    params,
-  });
+export function getSingerList(params: { initial: string }) {
+  return httpHelper.get("/artist/list", params);
 }

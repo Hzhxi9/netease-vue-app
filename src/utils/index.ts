@@ -1,3 +1,6 @@
+/**
+ * 格式化播放数量
+ */
 export function formatPlayCount(value: number): string {
   const num = value.toString();
 
@@ -13,6 +16,9 @@ export function formatPlayCount(value: number): string {
   return result;
 }
 
+/**
+ * 获取随机列表
+ */
 export function getRandomItem(arr: any[], count: number): any[] {
   let i = arr.length,
     temp;
@@ -28,3 +34,13 @@ export function getRandomItem(arr: any[], count: number): any[] {
   }
   return copyArr.slice(min);
 }
+
+/**
+ * 判断元素是否在可视化区域
+ */
+
+export const isElementNotInViewport = (el: HTMLDivElement, containerEl: HTMLDivElement) => {
+  const anchorRect = el && el.getBoundingClientRect();
+  const containerElTop = containerEl && containerEl.clientHeight + 90;
+  return containerElTop >= anchorRect.top || anchorRect.bottom <= 0;
+};

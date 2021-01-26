@@ -29,13 +29,27 @@ const Recommend = {
         /**
          * 轮播图
          */
-        Api.getBanner().then((res) => {
-          res.code === 200 && (state.banners = res.banners);
-        });
+        Api.getBanner().then(
+          (res: {
+            code: number;
+            banners: {
+              imageUrl: string;
+              url: string;
+              typeTitle: string;
+              encodeId: string;
+              targetId: number;
+              titleColor: string;
+              targetType: number;
+              scm: string;
+            }[];
+          }) => {
+            res.code === 200 && (state.banners = res.banners);
+          }
+        );
         /**
          * 推荐歌单
          */
-        Api.personalized().then((res) => {
+        Api.personalized().then((res: any) => {
           let result = [];
           res.code === 200 && (result = getRandomItem(res.result, 6));
           state.personalizedList = result;
@@ -43,13 +57,13 @@ const Recommend = {
         /**
          * 推荐MV
          */
-        Api.personalizedDJ().then((res) => {
+        Api.personalizedDJ().then((res: any) => {
           res.code === 200 && (state.personalizedDJList = res.result);
         });
         /**
          * 推荐新音乐
          */
-        Api.personalizedNewSong().then((res) => {
+        Api.personalizedNewSong().then((res: any) => {
           let result = [];
           res.code === 200 && (result = getRandomItem(res.result, 6));
           state.personalizedNewSongsList = result;
