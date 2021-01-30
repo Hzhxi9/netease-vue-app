@@ -18,10 +18,6 @@ const Recommend = {
       personalizedList: [] as ResTypes.PersonalizedItemData[],
       personalizedDJList: [] as ResTypes.PersonalizedDJItemData[],
       personalizedNewSongsList: [] as ResTypes.PersonalizedNewSongItemData[],
-
-      show1: false,
-      show2: false,
-      show3: false,
     });
 
     const init = () => {
@@ -29,27 +25,13 @@ const Recommend = {
         /**
          * 轮播图
          */
-        Api.getBanner().then(
-          (res: {
-            code: number;
-            banners: {
-              imageUrl: string;
-              url: string;
-              typeTitle: string;
-              encodeId: string;
-              targetId: number;
-              titleColor: string;
-              targetType: number;
-              scm: string;
-            }[];
-          }) => {
-            res.code === 200 && (state.banners = res.banners);
-          }
-        );
+        Api.getBanner().then((res) => {
+          res.code === 200 && (state.banners = res.banners);
+        });
         /**
          * 推荐歌单
          */
-        Api.personalized().then((res: any) => {
+        Api.personalized().then((res) => {
           let result = [];
           res.code === 200 && (result = getRandomItem(res.result, 6));
           state.personalizedList = result;
@@ -57,13 +39,13 @@ const Recommend = {
         /**
          * 推荐MV
          */
-        Api.personalizedDJ().then((res: any) => {
+        Api.personalizedDJ().then((res) => {
           res.code === 200 && (state.personalizedDJList = res.result);
         });
         /**
          * 推荐新音乐
          */
-        Api.personalizedNewSong().then((res: any) => {
+        Api.personalizedNewSong().then((res) => {
           let result = [];
           res.code === 200 && (result = getRandomItem(res.result, 6));
           state.personalizedNewSongsList = result;
@@ -93,14 +75,6 @@ const Recommend = {
         done();
       }, delay);
     };
-
-    onBeforeMount(() => {
-      setTimeout(() => {
-        state.show1 = !state.show1;
-        state.show2 = !state.show2;
-        state.show3 = !state.show3;
-      });
-    });
 
     init();
 
@@ -135,33 +109,32 @@ const Recommend = {
       <div class="recommend">
         <div class="banner-box">{renderSwipe}</div>
         <div class="warp">
-          <TransitionGroup name="more" css={false} onBeforeEnter={beforeEnter} onEnter={enter}>
-            {state.show1 ? (
-              <ListComponents
-                list={state.personalizedList}
-                title={"推荐歌单"}
-                data-index={1}
-                key="1"
-              />
-            ) : null}
+          <TransitionGroup
+            name="more"
+            appear
+            css={false}
+            onBeforeEnter={beforeEnter}
+            onEnter={enter}>
+            <ListComponents
+              list={state.personalizedList}
+              title={"推荐歌单"}
+              data-index={1}
+              key="1"
+            />
 
-            {state.show2 ? (
-              <ListComponents
-                list={state.personalizedDJList}
-                title={"推荐MV"}
-                data-index={2}
-                key="2"
-              />
-            ) : null}
+            <ListComponents
+              list={state.personalizedDJList}
+              title={"推荐MV"}
+              data-index={2}
+              key="2"
+            />
 
-            {state.show3 ? (
-              <ListComponents
-                list={state.personalizedNewSongsList}
-                title={"新歌速递"}
-                data-index={3}
-                key="3"
-              />
-            ) : null}
+            <ListComponents
+              list={state.personalizedNewSongsList}
+              title={"新歌速递"}
+              data-index={3}
+              key="3"
+            />
           </TransitionGroup>
         </div>
       </div>

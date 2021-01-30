@@ -1,5 +1,7 @@
 import { defineComponent, reactive, ref } from "vue";
 
+import PlayComponent from "../PlayComponent/index";
+
 const TabbarComponent = defineComponent({
   name: "TabbarComponent",
 
@@ -50,7 +52,12 @@ const TabbarComponent = defineComponent({
       </van-tabbar>
     );
 
-    return () => renderTabBar();
+    return () => (
+      <>
+        {<PlayComponent />}
+        {renderTabBar()}
+      </>
+    );
   },
 });
 

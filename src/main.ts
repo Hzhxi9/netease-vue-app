@@ -16,6 +16,9 @@ import {
   IndexBar,
   IndexAnchor,
   Cell,
+  List,
+  Sticky,
+  Circle,
 } from "vant";
 
 import App from "./App.vue";
@@ -45,6 +48,9 @@ const app = createApp(App);
   IndexBar,
   IndexAnchor,
   Cell,
+  List,
+  Sticky,
+  Circle,
 ].forEach((name) => {
   app.use(name);
 });

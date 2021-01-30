@@ -33,7 +33,7 @@ const ListComponents = defineComponent({
               {formatPlayCount(
                 item.playCount
                   ? item.playCount
-                  : item.program?.adjustedPlayCount
+                  : item.program.adjustedPlayCount
                   ? item.program.adjustedPlayCount
                   : 0
               )}

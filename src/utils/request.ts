@@ -43,8 +43,6 @@ axiosInstance.interceptors.request.use(
 
     config.cancelToken = source.token;
 
-    console.log(config);
-
     /**
      * 缓存命中判断
      * 成功则取消当次请求
@@ -195,7 +193,6 @@ const httpHelper = {
     return axiosInstance
       .get(url, { params })
       .then((res) => {
-        console.log(res.data);
         return res.data;
       })
       .catch((error) => {

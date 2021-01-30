@@ -1,5 +1,5 @@
 import { onBeforeMount, reactive, onActivated, defineComponent, KeepAlive } from "vue";
-import { RouterView, useRouter } from "vue-router";
+import router from "@/router/index";
 
 import "./index.scss";
 
@@ -13,8 +13,6 @@ const Home = defineComponent({
       active: 0,
       showMenu: false,
     });
-
-    const router = useRouter();
 
     const tabList = Object.freeze([
       { title: "推荐", id: 0, path: "/recommend" },
@@ -60,29 +58,39 @@ const Home = defineComponent({
       </van-tabs>
     );
 
-    return () => (
+    return {
+      renderTabBar,
+      renderNavRight,
+      renderNavLeft,
+      state,
+    };
+  },
+  render() {
+    return (
       <div class="home">
         <van-nav-bar
           title="网易云音乐"
           border={false}
           v-slots={{
-            right: () => renderNavRight,
-            left: () => renderNavLeft,
+            right: () => this.renderNavRight,
+            left: () => this.renderNavLeft,
           }}></van-nav-bar>
-        {renderTabBar}
+        {this.renderTabBar}
 
         <van-popup
-          v-model={[state.showMenu, "show"]}
+          v-model={[this.state.showMenu, "show"]}
           position={"left"}
           class="menu-popup"></van-popup>
 
         <div class="wrap">
-          {/* <router-view v-slots={Component}>
+          {/* <router-view v-slots={Home}>
             <KeepAlive>
-              <component is={Component}></component>
+              <component is={Home}></component>
             </KeepAlive>
           </router-view> */}
-          <RouterView></RouterView>
+          <KeepAlive>
+            <router-view></router-view>
+          </KeepAlive>
         </div>
 
         <TabberComponent />
