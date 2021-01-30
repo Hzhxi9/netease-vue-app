@@ -10,6 +10,6 @@ module.exports = {
       },
       "vant",
     ],
-    ["@vue/babel-plugin-jsx"],
+    ["@vue/babel-plugin-jsx", { transformOn: true, compatibleProps: true }],
   ],
 };
