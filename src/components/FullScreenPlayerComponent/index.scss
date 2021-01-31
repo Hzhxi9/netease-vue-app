@@ -1,0 +1,61 @@
+.player {
+  width: 100%;
+  height: 100%;
+  .play-bg {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    filter: blur(20px);
+    z-index: -1;
+    transform: scale(1.5); /*和网易云音乐对比了一下，发现也是放大1.5倍*/
+  }
+  .van-nav-bar {
+    background-color: transparent;
+    .van-nav-bar__title {
+      color: #000;
+    }
+  }
+  .song-img {
+    width: 100%;
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+  .footer {
+    position: fixed;
+    bottom: 10%;
+    left: 0;
+    width: 100%;
+
+    .footer-progress {
+      width: 90%;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      padding: 2.667vw 0;
+      p {
+        &:first-child {
+          margin-right: 3.2vw;
+        }
+        &:last-child {
+          margin-left: 3.2vw;
+        }
+      }
+      .van-progress {
+        width: 60%;
+      }
+    }
+  }
+  .control-list {
+    display: flex;
+    width: 90%;
+    margin: 0 auto;
+    justify-content: space-around;
+    padding: 4vw 0;
+  }
+}

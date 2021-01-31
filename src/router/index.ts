@@ -8,6 +8,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
     name: "Home",
+    redirect: "/recommend",
     // component: () => import(/* webpackChunkName: "home" */ "../views/Home/index"),
     component: Home,
     children: [

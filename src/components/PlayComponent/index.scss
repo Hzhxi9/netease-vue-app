@@ -1,3 +1,5 @@
+@import "../../assets/styles/animate.scss";
+
 .mini-play {
   height: 13.333vw;
   display: flex;
@@ -8,6 +10,10 @@
   .icon {
     display: flex;
     align-items: center;
+
+    .song-icon {
+      animation: ro 5.1s linear infinite;
+    }
   }
   .name {
     flex: 1;
@@ -36,6 +42,25 @@
     .van-circle {
       display: flex;
       justify-content: center;
+    }
+  }
+  .play-icon {
+    margin-right: 1.333vw;
+  }
+  .play-song {
+    width: 100%;
+    font-size: 4.267vw;
+    color: $text-color;
+
+    .play-singer {
+      font-size: 3.733vw;
+      color: $text-color1;
+    }
+  }
+  .play-song.play-active {
+    color: $theme-color;
+    span {
+      color: $theme-color;
     }
   }
 }

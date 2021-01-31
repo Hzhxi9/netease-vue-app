@@ -19,6 +19,8 @@ import {
   List,
   Sticky,
   Circle,
+  ActionSheet,
+  Slider,
 } from "vant";
 
 import App from "./App.vue";
@@ -51,6 +53,8 @@ const app = createApp(App);
   List,
   Sticky,
   Circle,
+  ActionSheet,
+  Slider,
 ].forEach((name) => {
   app.use(name);
 });
