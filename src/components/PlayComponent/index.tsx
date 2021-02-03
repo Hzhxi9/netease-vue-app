@@ -1,6 +1,10 @@
 import { defineComponent, onMounted, reactive, ref, Transition, computed } from "vue";
+import { useStore } from "vuex";
 
 import FullScreenPlayerComponent from "../FullScreenPlayerComponent/index";
+import IconFontComponent from "../IconFontComponent/index";
+
+import { MusicMutation } from "../../store/motation-type";
 
 import "./index.scss";
 
@@ -9,36 +13,41 @@ const PlayComponent = defineComponent({
 
   setup() {
     const state = reactive({
-      isPlay: true,
       showMiniPlay: false,
       showPlayList: false,
       showPlay: false,
 
       currentRate: 0,
+      duration: 0,
     });
 
     const audioElementRef = ref<HTMLAudioElement | null>(null);
 
-    const currentTimeVal = computed({
-      get: () => state.currentRate,
-      set: (val) => {
-        if (audioElementRef.value) {
-          val = (state.currentRate / audioElementRef.value.duration) * 100;
-        }
-      },
+    const store = useStore();
+
+    const currentTimeVal = computed(() => {
+      let result = 0;
+      audioElementRef.value && (result = (state.currentRate / state.duration) * 100);
+      return result;
     });
 
+    const isMusicPlay = computed(() => store.state.music.isMusicPlay);
+
     onMounted(() => {
+      const audioElementValue = audioElementRef.value;
+      if (audioElementValue)
+        isMusicPlay.value ? audioElementValue.play() : audioElementValue.pause();
       setTimeout(() => {
         state.showMiniPlay = true;
       }, 500);
     });
 
     const handlePlayClick = () => {
-      state.isPlay = !state.isPlay;
-      const audioElementValue = audioElementRef.value;
+      store.commit(MusicMutation.CHANGEMUSICPLAY, !isMusicPlay.value);
 
-      if (audioElementValue) state.isPlay ? audioElementValue.play() : audioElementValue.pause();
+      const audioElementValue = audioElementRef.value;
+      if (audioElementValue)
+        isMusicPlay.value ? audioElementValue.play() : audioElementValue.pause();
     };
 
     const timeUpDate = (e: any) => {
@@ -47,7 +56,7 @@ const PlayComponent = defineComponent({
 
     const renderSongIcon = () => (
       <van-image
-        class="song-icon"
+        class={[isMusicPlay.value ? "" : "paused", "song-icon"]}
         width="10.667vw"
         round
         src={"http://p4.music.126.net/FJWZe1aQV2-iuYeq8gUR5A==/19022650672277889.jpg"}
@@ -66,10 +75,6 @@ const PlayComponent = defineComponent({
       </>
     );
 
-    const renderIcon = (name: string, size = "4vw", color = "rgb(212, 68, 57)") => (
-      <van-icon class="iconfont" class-prefix="icon" name={name} size={size} color={color} />
-    );
-
     const renderControl = () => (
       <>
         <van-circle
@@ -78,7 +83,11 @@ const PlayComponent = defineComponent({
           layer-color="#999"
           size={"8vw"}
           v-slots={{
-            default: state.isPlay ? renderIcon("zantingtingzhi") : renderIcon("bofang"),
+            default: isMusicPlay.value ? (
+              <IconFontComponent name={"zantingtingzhi"} />
+            ) : (
+              <IconFontComponent name={"bofang"} />
+            ),
           }}
           onClick={handlePlayClick}
         />
@@ -86,7 +95,7 @@ const PlayComponent = defineComponent({
           onClick={() => {
             state.showPlayList = !state.showPlayList;
           }}>
-          {renderIcon("bofangliebiao", "6.667vw")}
+          <IconFontComponent name="bofangliebiao" size="6.667vw" />
         </div>
       </>
     );
@@ -98,7 +107,11 @@ const PlayComponent = defineComponent({
             center
             title="单元格"
             v-slots={{
-              icon: <div class="play-icon">{renderIcon("ziyuanldpi-copy")}</div>,
+              icon: (
+                <div class="play-icon">
+                  <IconFontComponent name="ziyuanldpi-copy" />
+                </div>
+              ),
               "right-icon": <van-icon name="cross" color="#333" />,
               title: (
                 <p class="play-song">
@@ -124,10 +137,12 @@ const PlayComponent = defineComponent({
     const renderAudio = () => (
       <audio
         id="audio"
-        src={"http://localhost:8081/media/test.39faa86d.mp3"}
+        src={"http://localhost:8082/media/test.39faa86d.mp3"}
         ref={audioElementRef}
-        autoplay
         onTimeupdate={(e) => timeUpDate(e)}
+        onPlay={(e: any) => {
+          state.duration = e.target?.duration;
+        }}
       />
     );
 

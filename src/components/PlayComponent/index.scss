@@ -14,6 +14,10 @@
     .song-icon {
       animation: ro 5.1s linear infinite;
     }
+    .paused {
+      animation-play-state: paused;
+      -webkit-animation-play-state: paused; /* Safari 和 Chrome */
+    }
   }
   .name {
     flex: 1;

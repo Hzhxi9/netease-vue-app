@@ -44,3 +44,14 @@ export const isElementNotInViewport = (el: HTMLDivElement, containerEl: HTMLDivE
   const containerElTop = containerEl && containerEl.clientHeight + 90;
   return containerElTop >= anchorRect.top || anchorRect.bottom <= 0;
 };
+
+/**
+ * 格式化分秒
+ */
+export const formatMinSecond = (data: number): string => {
+  let m = Math.floor(data / 60).toString();
+  let s = (Math.floor(data) - Number(m) * 60).toString();
+  m = Number(m) < 10 ? `0${m}` : m;
+  s = Number(s) < 10 ? `0${s}` : s;
+  return `${m}:${s}`;
+};
