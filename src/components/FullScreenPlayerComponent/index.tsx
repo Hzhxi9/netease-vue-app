@@ -156,30 +156,26 @@ const FullScreenPlayerComponent = defineComponent({
     const renderControlList = () => (
       <ul class="control-list">
         <li onClick={selectMode}>
-          <IconFontComponent
-            name={state.mode[state.modeIndex].mode}
-            size="8vw"
-            color="rgb(46, 48, 48)"
-          />
+          <IconFontComponent name={state.mode[state.modeIndex].mode} size="8vw" color="#fff" />
         </li>
         <li>
-          <IconFontComponent name="shangyiqu" size="8vw" color="rgb(46, 48, 48)" />
+          <IconFontComponent name="shangyiqu" size="8vw" color="#fff" />
         </li>
         <li onClick={handlePlay}>
           <IconFontComponent
             name={isMusicPlay.value ? "bofangzhong" : "zanting"}
             size="8vw"
-            color="rgb(46, 48, 48)"
+            color="#fff"
           />
         </li>
         <li>
-          <IconFontComponent name="xiayiqu" size="8vw" color="rgb(46, 48, 48)" />
+          <IconFontComponent name="xiayiqu" size="8vw" color="#fff" />
         </li>
         <li
           onClick={() => {
             state.showList = !state.showList;
           }}>
-          <IconFontComponent name="bofangduilie" size="8vw" color="rgb(46, 48, 48)" />
+          <IconFontComponent name="bofangduilie" size="8vw" color="#fff" />
         </li>
       </ul>
     );
